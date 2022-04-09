@@ -58,6 +58,25 @@ contract DWDN {
     return(_network[msg.sender]._connectedUsersByAddress[_address],_network[msg.sender]._sizeOfConnectedUsersByAddress);
   }
 
+  function getAddresses() public view returns (address [] memory) {
+    return(_network[msg.sender]._addresses);
+  }
+
+  function getBlackListAddresses() public view returns (address [] memory) {
+
+    address [] memory _addressesOnBlackList = new address[](_maxConnections);
+    uint j = 0;
+
+    for(uint i = 0; i < _network[msg.sender]._addresses.length; ++i) {
+      if(_network[msg.sender]._blackList[_network[msg.sender]._addresses[i]] == 1) {
+        _addressesOnBlackList[j] = _network[msg.sender]._addresses[i];
+        j++;
+      }
+    }
+
+    return _addressesOnBlackList;
+  }
+
 
   function changeGasValue(uint gas) public onlyOwner {
     _gasTransfer = gas;

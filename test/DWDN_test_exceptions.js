@@ -41,6 +41,24 @@ contract('DWDN_test_exceptions', function(accounts){
     });
   });
 
+  it("Not owner try to change gasValue - exception", function() {
+    return DWDN.deployed().then(function(instance) {
+      instance_1 = instance;
+      return instance_1.changeGasValue(1,{from:mainAccount_2});
+    }).then(assert.fail).catch(function(error) {
+      assert(true);
+    });
+  });
+
+  it("Not owner try to change changeMaxMemory - exception", function() {
+    return DWDN.deployed().then(function(instance) {
+      instance_1 = instance;
+      return instance_1.changeMaxMemory(1,{from:mainAccount_2});
+    }).then(assert.fail).catch(function(error) {
+      assert(true);
+    });
+  });
+
 
   it("Add accounts to the maximum value - exception", function() {
     return DWDN.deployed().then(function(instance) {
